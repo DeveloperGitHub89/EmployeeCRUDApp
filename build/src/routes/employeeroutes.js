@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const EmployeeController_1 = require("../controllers/EmployeeController");
+const express_1 = require("express");
+const inversify_config_1 = __importDefault(require("../config/inversify.config"));
+const employeeRouter = express_1.Router();
+const employeeController = inversify_config_1.default.resolve(EmployeeController_1.EmployeeController);
+employeeRouter.get('/', employeeController.findAll);
+employeeRouter.get('/page/:pageNo/limit/:limit', employeeController.find);
+employeeRouter.get('/:id/names', employeeController.findNames);
+employeeRouter.get('/:id', employeeController.findById);
+employeeRouter.get('/department/:id', employeeController.findByDepartment);
+employeeRouter.get('/:id/department', employeeController.findByIdWithDepartment);
+employeeRouter.get('/name/startswith/:name', employeeController.findByNameStartsWith);
+employeeRouter.post('/department/:departmentId', employeeController.save);
+employeeRouter.delete('/:id', employeeController.deleteById);
+exports.default = employeeRouter;

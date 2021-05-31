@@ -1,0 +1,12 @@
+import { Container } from 'inversify';
+import { EmployeeDaoImpl } from '../daoimpl/EmployeeDaoImpl';
+import { EmployeeServiceImpl } from '../serviceimpl/EmployeeServiceImpl';
+import { DepartmentDaoImpl } from '../daoimpl/DepartmentDaoImpl';
+import { DepartmentServiceImpl } from '../serviceimpl/DepartmentServiceImpl';
+import TYPES from '../types/DependencyInjectorSymbols/symbols';
+const container: Container = new Container();
+container.bind<EmployeeServiceImpl>(TYPES.EmployeeServiceImpl).to(EmployeeServiceImpl).inSingletonScope();
+container.bind<EmployeeDaoImpl>(TYPES.EmployeeDaoImpl).to(EmployeeDaoImpl).inSingletonScope();
+container.bind<DepartmentServiceImpl>(TYPES.DepartmentServiceImpl).to(DepartmentServiceImpl).inSingletonScope();
+container.bind<DepartmentDaoImpl>(TYPES.DepartmentDaoImpl).to(DepartmentDaoImpl).inSingletonScope();
+export default container;

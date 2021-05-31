@@ -1,0 +1,12 @@
+import { DepartmentController } from "../controllers/DepartmentController";
+import { Router } from "express";
+import container from "../config/inversify.config";
+const departmentRouter = Router();
+const departmentController: DepartmentController = container.resolve<DepartmentController>(DepartmentController);
+departmentRouter.get('/', departmentController.findAll);
+departmentRouter.get('/:id', departmentController.findById);
+departmentRouter.get('/:id/employees', departmentController.findByIdWithEmployees);
+departmentRouter.get('/page/:pageNo/limit/:limit', departmentController.find);
+departmentRouter.post('/', departmentController.save);
+departmentRouter.delete('/:id', departmentController.deleteById);
+export default departmentRouter;
