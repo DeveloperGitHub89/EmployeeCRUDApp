@@ -1,14 +1,34 @@
 import 'reflect-metadata';
 import express from 'express';
-import employeeRouter from './src/routes/employeeroutes';
-import departmentRouter from './src/routes/departmentroutes';
-const server = express();
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-const PORT = 8200;
-server.use('/api/employees', employeeRouter);
-server.use('/api/departments', departmentRouter);
-server.get('/', (req, res) => res.send('Express + TypeScript Server'));
-server.listen(PORT, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
-});
+import { DepartmentRoutes } from './src/routes/DepartmentRoutes';
+import {  EmployeeRoutes } from './src/routes/EmployeeRoutes';
+import { RoutePrefix } from './src/constants/RoutePrefix';
+import cors from 'cors';
+
+class App{
+    private static server:express.Application;
+    private static readonly PORT=8200;
+    private static readonly allowedOrigins = ['http://localhost:3000'];
+    
+    private static serverConfig():void{
+        const options: cors.CorsOptions = {
+            origin: App.allowedOrigins
+        };
+        App.server.use(cors(options));
+        App.server.use(express.json());
+        App.server.use(express.urlencoded({ extended: true }));
+    }
+    private static serverRoutesConfig(){
+        App.server.use(RoutePrefix.EMPLOYEE_ROUTE_PREFIX, EmployeeRoutes.getRoutes());
+        App.server.use(RoutePrefix.DEPARTMENT_ROUTE_PREFIX, DepartmentRoutes.getRoutes());
+    }
+     static startServer(){
+        App.server = express();
+        App.serverConfig();
+        App.serverRoutesConfig();
+        App.server.listen(App.PORT, () => {
+            console.log(`⚡️[server]: Server is running at http://localhost:${this.PORT}`);
+        });
+    }
+}
+App.startServer();

@@ -1,12 +1,14 @@
 import { DepartmentController } from "../controllers/DepartmentController";
 import { Router } from "express";
 import container from "../config/inversify.config";
-const departmentRouter = Router();
-const departmentController: DepartmentController = container.resolve<DepartmentController>(DepartmentController);
-departmentRouter.get('/', departmentController.findAll);
-departmentRouter.get('/:id', departmentController.findById);
-departmentRouter.get('/:id/employees', departmentController.findByIdWithEmployees);
-departmentRouter.get('/page/:pageNo/limit/:limit', departmentController.find);
-departmentRouter.post('/', departmentController.save);
-departmentRouter.delete('/:id', departmentController.deleteById);
-export default departmentRouter;
+import { CommonRoute } from "./CommonRoute";
+
+export class DepartmentRoutes extends CommonRoute{
+    private static ROUTER: Router = Router();
+    private static CONTROLLER: DepartmentController = container.resolve<DepartmentController>(DepartmentController);
+    static getRoutes(): Router {
+        super.getCommonRoutes(DepartmentRoutes.ROUTER, DepartmentRoutes.CONTROLLER);
+        DepartmentRoutes.ROUTER.get('/:id/employees', DepartmentRoutes.CONTROLLER.findByIdWithEmployees);
+        return DepartmentRoutes.ROUTER;
+    }
+}

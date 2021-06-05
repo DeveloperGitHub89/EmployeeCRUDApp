@@ -6,6 +6,7 @@ import { ResponseMessage } from '../constants/ResponseMessage';
 import { Employee } from '../models/Employee';
 import { EmployeeServiceImpl } from '../serviceimpl/EmployeeServiceImpl';
 import TYPES from '../types/DependencyInjectorSymbols/symbols';
+import {encode} from 'cbor';
 @injectable()
 export class EmployeeController {
     private employeeServiceImpl: EmployeeServiceImpl;
@@ -49,7 +50,8 @@ export class EmployeeController {
     async findAll(request: Request, response: Response): Promise<Response> {
         try {
             const employees: Employee[] = await this.employeeServiceImpl.findAll();
-            return response.status(StatusCodes.OK).json(employees);
+            const da=encode(employees);
+            return response.status(StatusCodes.OK).json(da);
         } catch (error) {
             console.log(error);
             return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ [ResponseKey.ERROR]: error.message });
@@ -59,6 +61,7 @@ export class EmployeeController {
     async find(request: Request, response: Response): Promise<Response> {
         try {
             const employees: Employee[] = await this.employeeServiceImpl.find(parseInt(request.params.pageNo), parseInt(request.params.limit));
+           // const da=encode(employees);
             return response.status(StatusCodes.OK).json(employees);
         } catch (error) {
             console.log(error);
