@@ -4,8 +4,8 @@ import container from "../config/inversify.config";
 import { CommonRoute } from "./CommonRoute";
 
 export class EmployeeRoutes extends CommonRoute{
-    private static ROUTER:Router=Router();
-    private static CONTROLLER: EmployeeController = container.resolve<EmployeeController>(EmployeeController);
+    private static readonly ROUTER:Router=Router();
+    private static readonly CONTROLLER: EmployeeController = container.resolve<EmployeeController>(EmployeeController);
     static getRoutes():Router{
         super.getCommonRoutes(EmployeeRoutes.ROUTER, EmployeeRoutes.CONTROLLER);
         EmployeeRoutes.ROUTER.get('/:id/names', EmployeeRoutes.CONTROLLER.findNames);
