@@ -4,9 +4,18 @@ import { EmployeeServiceImpl } from '../serviceimpl/EmployeeServiceImpl';
 import { DepartmentDaoImpl } from '../daoimpl/DepartmentDaoImpl';
 import { DepartmentServiceImpl } from '../serviceimpl/DepartmentServiceImpl';
 import TYPES from '../types/DependencyInjectorSymbols/symbols';
+import { AdminServiceImpl } from '../serviceimpl/AdminServiceImpl';
+import { AdminDaoImpl } from '../daoimpl/AdminDaoImpl';
+import { ManagerDaoImpl } from '../daoimpl/ManagerDaoImpl';
+import { ManagerServiceImpl } from '../serviceimpl/ManagerServiceImpl';
 const container: Container = new Container();
 container.bind<EmployeeServiceImpl>(TYPES.EmployeeServiceImpl).to(EmployeeServiceImpl).inSingletonScope();
 container.bind<EmployeeDaoImpl>(TYPES.EmployeeDaoImpl).to(EmployeeDaoImpl).inSingletonScope();
 container.bind<DepartmentServiceImpl>(TYPES.DepartmentServiceImpl).to(DepartmentServiceImpl).inSingletonScope();
 container.bind<DepartmentDaoImpl>(TYPES.DepartmentDaoImpl).to(DepartmentDaoImpl).inSingletonScope();
+container.bind<AdminServiceImpl>(TYPES.AdminServiceImpl).to(AdminServiceImpl).inSingletonScope();
+container.bind<AdminDaoImpl>(TYPES.AdminDaoImpl).to(AdminDaoImpl).inSingletonScope();
+container.bind<ManagerServiceImpl>(TYPES.ManagerServiceImpl).to(ManagerServiceImpl).inSingletonScope();
+container.bind<ManagerDaoImpl>(TYPES.ManagerDaoImpl).to(ManagerDaoImpl).inSingletonScope();
+
 export default container;

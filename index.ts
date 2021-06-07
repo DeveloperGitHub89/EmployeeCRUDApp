@@ -4,7 +4,9 @@ import { DepartmentRoutes } from './src/routes/DepartmentRoutes';
 import {  EmployeeRoutes } from './src/routes/EmployeeRoutes';
 import { RoutePrefix } from './src/constants/RoutePrefix';
 import cors from 'cors';
-
+import helmet from 'helmet';
+import { AdminRoutes } from './src/routes/AdminRoutes';
+import { ManagerRoutes } from './src/routes/ManagerRoutes';
 class App{
     private static server:express.Application;
     private static readonly PORT=8200;
@@ -14,6 +16,7 @@ class App{
         const options: cors.CorsOptions = {
             origin: App.allowedOrigins
         };
+        App.server.use(helmet())
         App.server.use(cors(options));
         App.server.use(express.json());
         App.server.use(express.urlencoded({ extended: true }));
@@ -21,6 +24,8 @@ class App{
     private static serverRoutesConfig(){
         App.server.use(RoutePrefix.EMPLOYEE_ROUTE_PREFIX, EmployeeRoutes.getRoutes());
         App.server.use(RoutePrefix.DEPARTMENT_ROUTE_PREFIX, DepartmentRoutes.getRoutes());
+        App.server.use(RoutePrefix.ADMIN_ROUTE_PREFIX, AdminRoutes.getRoutes());
+        App.server.use(RoutePrefix.MANAGER_ROUTE_PREFIX, ManagerRoutes.getRoutes());
     }
      static startServer(){
         App.server = express();

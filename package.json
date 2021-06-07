@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cbor": "^7.0.5",
     "cors": "^2.8.5",
     "debug": "^4.3.1",
@@ -19,8 +20,10 @@
     "express": "^4.17.1",
     "express-winston": "^4.1.0",
     "faker": "^5.5.3",
+    "helmet": "^4.6.0",
     "http-status-codes": "^2.1.4",
     "inversify": "^5.1.1",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.6",
     "mysql": "^2.18.1",
     "nesthydrationjs": "^2.0.0",

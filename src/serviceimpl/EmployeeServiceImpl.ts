@@ -48,10 +48,10 @@ export class EmployeeServiceImpl extends GenericServiceImpl<Employee> implements
             throw error;
         }
     }
-    async save(requestBody:any,departmentId:number): Promise<any>{
+    async save(requestBody:any): Promise<any>{
         const txn = await db.transaction();
        try {
-           const id: number = await this.employeeDaoImpl.save(requestBody,departmentId,txn);
+           const id: number = await this.employeeDaoImpl.save(requestBody,txn);
            txn.commit();
            return id;
        } catch (error) {
