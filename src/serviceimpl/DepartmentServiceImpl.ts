@@ -12,14 +12,6 @@ export class DepartmentServiceImpl extends GenericServiceImpl<Department> implem
         this.departmentDaoImpl = departmentDaoImpl;
     }
     
-    async save(department:Department): Promise<any>{
-        try {
-            const id: number = await this.departmentDaoImpl.save(department);
-            return id;
-        } catch (error) {
-            throw error;
-        }
-    }
     
     async findByIdWithEmployees(id: number): Promise<Department>{
         try {

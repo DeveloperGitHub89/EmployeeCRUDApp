@@ -15,22 +15,10 @@ export class EmployeeController extends GenericController<Employee> {
         this.employeeServiceImpl = employeeServiceImpl;
         this.findNames= this.findNames.bind(this);
         this.findByNameStartsWith=this.findByNameStartsWith.bind(this);
-        this.save = this.save.bind(this);
         this.findByDepartment= this.findByDepartment.bind(this);
         this.findByIdWithDepartment= this.findByIdWithDepartment.bind(this);
     }
-    async save(request: Request, response: Response): Promise<Response> {
-       try {
-           const id: number = await this.employeeServiceImpl.save(request.body);
-        return response.status(StatusCodes.CREATED).json({ [ResponseKey.MESSAGE] :ResponseMessage.ENTITY_CREATED+" with id "+id});
-       } catch (error) {
-           console.log(error);
-           if (error.errno===1062) {
-               return response.status(StatusCodes.CONFLICT).json({ [ResponseKey.MESSAGE]: ResponseMessage.DUPLICATE_ENTITY});
-           }
-           return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ [ResponseKey.ERROR]: error });
-       }
-    }
+   
     
     async findNames(request: Request, response: Response): Promise<Pick<Employee, "fname" | "lname">[] | Response>{
         try {

@@ -14,11 +14,13 @@ export class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
         super(TableName.EMPLOYEES, db);
     }
     
-    /* overriding save method from GenericDao */
-    async save(employeeRequestObject: any, txn: Knex.Transaction<any, any[]>):Promise<any>{
+    /* overriding save method from GenericDaoImpl */
+    async save(employeeRequestObject: any):Promise<any>{
         try {
            const addresses:EmployeeAddress[]= employeeRequestObject.addresses;
+           const txn: Knex.Transaction<any, any[]> = employeeRequestObject.txn;
            delete employeeRequestObject['addresses'];
+           delete employeeRequestObject['txn'];
            //employeeRequestObject.department_id = departmentId;
            const id: number = await txn(TableName.EMPLOYEES).insert(employeeRequestObject);
            addresses.forEach((address) => address.employee_id = id);

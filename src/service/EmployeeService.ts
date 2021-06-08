@@ -6,5 +6,4 @@ export interface EmployeeService extends GenericService<Employee>{
     findByDepartment(id: number): Promise<Employee[]>;
     findByNameStartsWith(name: string): Promise<Employee[]>;
     findByIdWithDepartment(id: number): Promise<any>;
-    save(requestBody: any, departmentId: number): Promise<any>;
 }

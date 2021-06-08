@@ -6,6 +6,14 @@ export abstract class GenericServiceImpl<T>{
     protected constructor(genericDaoImpl: GenericDaoImpl<T>) {
         this.genericDaoImpl=genericDaoImpl;
     }
+    async save(object: T): Promise<any> {
+        try {
+            const id: number = await this.genericDaoImpl.save(object);
+            return id;
+        } catch (error) {
+            throw error;
+        }
+    }
     async findAll(): Promise<T[]> {
         try {
             const objects: T[] = await this.genericDaoImpl.findAll();

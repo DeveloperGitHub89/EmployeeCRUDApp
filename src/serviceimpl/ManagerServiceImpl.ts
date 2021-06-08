@@ -12,7 +12,7 @@ export class ManagerServiceImpl extends GenericServiceImpl<Manager> implements M
         super(managerDaoImpl);
         this.managerDaoImpl = managerDaoImpl;
     }
-
+    /* overriding save method from GenericServiceImpl */
     async save(manager: Manager): Promise<any> {
         try {
             manager.password = hashSync(manager.password, 10);

@@ -12,7 +12,8 @@ export class AdminServiceImpl extends GenericServiceImpl<Admin> implements Admin
         super(adminDaoImpl);
         this.adminDaoImpl = adminDaoImpl;
     }
-
+   
+    /* overriding save method from GenericServiceImpl */
     async save(admin: Admin): Promise<any> {
         try {
             admin.password=hashSync(admin.password,10);

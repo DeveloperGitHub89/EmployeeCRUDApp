@@ -17,12 +17,12 @@ export class AdminDaoImpl extends GenericDaoImpl<Admin> implements AdminDao {
             throw error;
         }
     }
-    async save(admin: Admin):Promise<any>{
-       try {
-           const id: number = await db(TableName.ADMINS).insert(admin);
-           return id;
-       } catch (error) {
-           throw error;
-       }
-   }
+//     async save(admin: Admin):Promise<any>{
+//        try {
+//            const id: number = await db(TableName.ADMINS).insert(admin);
+//            return id;
+//        } catch (error) {
+//            throw error;
+//        }
+//    }
 }

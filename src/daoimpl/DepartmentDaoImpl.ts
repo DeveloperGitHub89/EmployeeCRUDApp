@@ -11,14 +11,14 @@ export class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     constructor(){
         super(TableName.DEPARTMENTS,db);
     }
-   async save(department: Department): Promise<any> {
-       try {
-           const id: number = await db(TableName.DEPARTMENTS).insert(department);
-           return id;
-       } catch (error) {
-           throw error;
-       }
-    }
+//    async save(department: Department): Promise<any> {
+//        try {
+//            const id: number = await db(TableName.DEPARTMENTS).insert(department);
+//            return id;
+//        } catch (error) {
+//            throw error;
+//        }
+//     }
    async findByIdWithEmployees(id:number):Promise<any>{
      try {
          const department = await db<Department>(TableName.DEPARTMENTS)

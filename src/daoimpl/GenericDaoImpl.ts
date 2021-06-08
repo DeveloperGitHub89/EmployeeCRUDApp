@@ -9,7 +9,14 @@ export abstract class GenericDaoImpl<T> implements GenericDao<T>{
        this.tableName = tableName;
        this.db = db;
    }
-    
+    async save(object: T): Promise<any> {
+        try {
+            const id: number = await this.db(this.tableName).insert(object);
+            return id;
+        } catch (error) {
+            throw error;
+        }
+    }
     // async save(modelObject: any): Promise<any> {
     //     try {
 
